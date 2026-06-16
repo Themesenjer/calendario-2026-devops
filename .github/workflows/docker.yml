@@ -30,32 +30,39 @@ jobs:
       - name: Construir Imagen
         run: |
           docker build \
-          -t ghcr.io/themesenjer/calendario-2026-devops:${{ env.IMAGE_TAG }} \
-          -t ghcr.io/themesenjer/calendario-2026-devops:latest \
-          .
+            -t ghcr.io/themesenjer/calendario-2026-devops:${{ env.IMAGE_TAG }} \
+            -t ghcr.io/themesenjer/calendario-2026-devops:latest \
+            .
 
       - name: Publicar Imagen
         run: |
           docker push ghcr.io/themesenjer/calendario-2026-devops:${{ env.IMAGE_TAG }}
           docker push ghcr.io/themesenjer/calendario-2026-devops:latest
 
-      - name: Mostrar variables (solo locales,no secretos)
+      - name: Verificar secretos
         run: |
-          echo "Probando conexion SSH con:"
-          echo "Host: ${{ secrets.VPS_HOST }}"
-          echo "Usuario: ${{ secrets.VPS_USER }}"
-          echo "Puerto: ${{ secrets.VPS_SSH_PORT }}"
-          echo "Password: ${{ secrets.VPS_PASSWORD }}"
-        
-      - name: Probar la shh en el vps
+          echo "HOST:"
+          echo "${{ secrets.VPS_HOST }}" | wc -c
+
+          echo "USER:"
+          echo "${{ secrets.VPS_USER }}" | wc -c
+
+          echo "PORT:"
+          echo "${{ secrets.VPS_SSH_PORT }}" | wc -c
+
+      - name: Probar SSH en VPS
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
           port: ${{ secrets.VPS_SSH_PORT }}
+          timeout: 60s
+          command_timeout: 10m
           script: |
-            echo "Probando conexion SSH en el VPS"
+            echo "===== CONEXION EXITOSA ====="
             hostname
             whoami
-            uptime
+            pwd
+            docker --version
+            docker ps
