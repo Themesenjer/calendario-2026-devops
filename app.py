@@ -12,23 +12,20 @@ def inicio():
     <!DOCTYPE html>
     <html>
     <head>
-
         <title>Calendario 2026</title>
-
         <style>
-
             body {{
                 font-family: Arial, sans-serif;
                 background: #f4f6f9;
                 margin: 20px;
             }}
 
-            h1 {{
+            <h1> {{
                 text-align: center;
                 color: #2c3e50;
             }}
 
-            h2 {{
+            <h2> {{
                 text-align: center;
                 color: #34495e;
             }}
@@ -58,10 +55,22 @@ def inicio():
                 font-size: 14px;
             }}
 
+            .curiosidades {{
+                margin-top: 40px;
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }}
+            
+            .curiosidades ul {{
+                color: #34495e;
+                font-size: 16px;
+                line-height: 1.6;
+            }}
+
         </style>
-
     </head>
-
     <body>
 
         <h1>📅 Calendario 2026</h1>
@@ -73,7 +82,6 @@ def inicio():
     """
 
     for mes in range(1, 13):
-
         html += f"""
         <div class="mes">
             <h3>{calendar.month_name[mes]}</h3>
@@ -84,28 +92,31 @@ def inicio():
     html += """
         </div>
 
+        <div class="curiosidades">
+            <h2>Curiosidades del Calendario 2026</h2>
+            <ul>
+                <li>El año 2026 no es bisiesto y tiene un total de 365 días.</li>
+                <li>Tanto el primer día (1 de enero) como el último día (31 de diciembre) caen en día jueves.</li>
+                <li>¡Es un año histórico para el deporte, ya que se celebrará la Copa Mundial de la FIFA en Norteamérica!</li>
+            </ul>
+        </div>
+
         <script>
-
         function actualizarHora() {
-
             const ahora = new Date();
-
             const opciones = {
                 timeZone: 'America/Guayaquil',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit'
             };
-
             document.getElementById('reloj').innerHTML =
                 'Hora de Quito, Ecuador: ' +
                 ahora.toLocaleTimeString('es-EC', opciones);
-
         }
 
         setInterval(actualizarHora, 1000);
         actualizarHora();
-
         </script>
 
     </body>
