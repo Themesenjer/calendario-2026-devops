@@ -58,6 +58,10 @@ def inicio():
                 font-size: 14px;
             }}
 
+            .curiosidades {{
+                margin-top: 40px;
+            }}
+
         </style>
 
     </head>
@@ -82,6 +86,10 @@ def inicio():
         """
 
     html += """
+        </div>
+
+        <div class="curiosidades">
+            <h2>Curiosidades del Calendario</h2>
         </div>
 
         <script>
